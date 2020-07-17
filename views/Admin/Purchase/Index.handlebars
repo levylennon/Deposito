@@ -1,0 +1,240 @@
+<div class="col-12">
+    <div class="card social-card">
+        <div class="card-body text-center">
+            <h2 class="text-facebook mb-20"><i class="fas fa-shopping-cart"></i></h2>
+            <h3 class="text-facebook fw-700">Compras</h3>
+            <hr class="my-4 rgba-white-light">
+            <div class="nav pt-2 justify-content-center">
+                <nav class="nav nav-pills flex-column flex-sm-row">
+                    <a class="btn btn-outline-primary btn-lg mr-3 active" data-toggle='tab' href="#xml">Importar XML</a>
+                    <a class="btn btn-outline-primary btn-lg" data-toggle='tab' href="#Find">Entrada Normal</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="tab-content">
+    <div class="tab-pane active" role='tabpanel' id='xml'>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Entrada com XML </h3>
+                </div>
+                <div class="card-body">
+                    <form id='form_entrada'>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Selecione o XML</label>
+                            {{!-- Input XML  --}}
+                            <div class="col-sm-7 ">
+                                <div class="form-group">
+                                    <input type="file" name="xml" class="file-upload-default" accept="text/xml"
+                                        id='FileXML'>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control file-upload-info"
+                                            placeholder="Clique aqui para selecionar o arquivo XML" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <label class="col-sm-1 col-form-label">Nº NFe</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" disabled id='NrNFe'>
+                            </div>
+
+                        </div>
+
+                        <hr>
+
+
+                        <h2 class="text-center col-12">Dados Remetente</h2>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Fornecedor</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" disabled id='Fornecedor'>
+                            </div>
+                            <label class="col-sm-1 col-form-label">CNPJ</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" disabled id='CNPJ'>
+                            </div>
+                            <label class="col-sm-1 col-form-label">I.E</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" disabled id='IE'>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+
+                            <label class="col-sm-2 col-form-label">Endereço</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" disabled id='Endereco'>
+                            </div>
+
+                            <label class="col-sm-1 col-form-label">Bairro</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" disabled id='Bairro'>
+                            </div>
+
+                            <label class="col-sm-1 col-form-label">CEP</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" disabled id='CEP'>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Municipio</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" disabled id='Municipio'>
+                            </div>
+
+                            <label class="col-sm-2 col-form-label">Data Emissão</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" disabled id='Emissao'>
+                            </div>
+
+                            <label class="col-sm-2 col-form-label">Data Saida/Entrada</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" disabled id='Entrada'>
+                            </div>
+
+
+
+                        </div>
+
+                        <h2 class="text-center col-12">Produtos</h2>
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Cód. Produto</th>
+                                    <th>Descrição</th>
+                                    <th>Tipo Unitário</th>
+                                    <th>Quantidade</th>
+                                    <th>Valor Unitário</th>
+                                    <th>Valor Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                            <tfoot>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th id='total_produto'></th>
+                            </tfoot>
+                        </table>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+        <div id="test"></div>
+        {{!--  </div>style="display: none;"> --}}
+
+        <div class="col-12" id='ProductList' style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Produtos </h3>
+                </div>
+
+                <div class="card-body">
+
+                    <form id='form_add_product'>
+                        <div class="form-row mt-3">
+                            <div class="form-group col-md-2 mb-3">
+                                <label for="SelectType">Tipo</label>
+                                <select id="SelectType" class="form-control" onchange="ProductOperation(this.value)">
+                                    <option value='Null'>Selecione...</option>
+                                    <option value='N'>Normal</option>
+                                    <option value='C'>Personalizado</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-5 mb-6">
+                                <label for="SelectProduct">Produto</label>
+                                <div id='Operation' class="form-row">
+                                    <select id="SelectProduct" class="form-control" name='ProductAdd' disabled></select>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-2 mb-2">
+                                <label for="ProductPrice">Valor</label>
+                                <input class="form-control" type="number" id='ProductPrice' disabled>
+                            </div>
+
+                            <div class="form-group col-md-2 mb-2">
+                                <label for="ProductQuantity">Quantidade</label>
+                                <input class="form-control" type="number" id='ProductQuantity' disabled>
+                            </div>
+
+                            <button type="button" class="btn btn-primary mt-4 col-1" style="height: 41px;"
+                                id='Add_products' disabled>OK</button>
+                        </div>
+                    </form>
+
+                    {{!-- Table Products  --}}
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="advanced_table" class="table dataTable no-footer dtr-inline collapsed"
+                                    role="grid">
+                                    <thead>
+                                        <tr role="row">
+                                            <th>Tipo</th>
+                                            <th>Produto</th>
+                                            <th>Valor</th>
+                                            <th>Quantidade</th>
+                                            <th>Imagem</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id='table_products'></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                            <th>&nbsp;</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>&nbsp;</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary col-12" id='btn_gravar'
+                                disabled>Gravar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- card pesquisar  --}}
+    <div class="tab-pane" role='tabpanel' id='Find'>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header justify-content-center">
+                    <nav class="nav nav-pills flex-column flex-sm-row">
+                        <a class="flex-sm-fill text-sm-center nav-link" data-toggle='tab' href="#All">Opçãp 1</a>
+                        <a class="flex-sm-fill text-sm-center nav-link" data-toggle='tab' href="#Pending">Opçãp 2</a>
+                        <a class="flex-sm-fill text-sm-center nav-link" data-toggle='tab' href="#Production">Opçãp 3</a>
+                        <a class="flex-sm-fill text-sm-center nav-link" data-toggle='tab' href="#Finalized">Opçãp 4</a>
+                    </nav>
+                </div>
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

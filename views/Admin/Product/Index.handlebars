@@ -1,0 +1,155 @@
+<div class="col-12">
+  <div class="card social-card">
+    <div class="card-body text-center">
+      <h2 class="text-facebook mb-20"><i class="ik ik-package"></i></h2>
+      <h3 class="text-facebook fw-700">Produto</h3>
+      <hr class="my-4 rgba-white-light">
+
+      <div class="nav pt-2 justify-content-center">
+
+        <nav class="nav nav-pills flex-column flex-sm-row">
+          <a class="btn btn-outline-primary btn-lg mr-3" data-toggle='tab' href="#New">Adicionar</a>
+          <a class="btn btn-outline-primary btn-lg" data-toggle='tab' href="#Find">Pesquisar</a>
+        </nav>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div class="tab-content">
+  <div class="tab-pane" role='tabpanel' id='New'>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3>Cadastro</h3>
+        </div>
+        <div class="card-body">
+          <form class="forms-sample" id='form_add'>
+            <div class="form-group row">
+              <label for="Description" class="col-sm-3 col-form-label">Descrição</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-center" id="Description"
+                  placeholder="Digite aqui..." name="Description" required=''>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="Barcode" class="col-sm-3 col-form-label">Código de Barras</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-center" placeholder="Digite aqui..." 
+                  id="Barcode" name="Barcode">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="Measure" class="col-sm-3 col-form-label">Unidade de Medida</label>
+              <div class="col-sm-9">
+                <select class="form-control form-control-center" name='Measure' id="Measure">
+                  <option value='null' selected>Selecione...</option>
+                  {{#each Measure}}
+                  <option value='{{_id}}'>{{Description}}</option>
+                  {{/each}}
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="Type" class="col-sm-3 col-form-label">Tipo de Produto</label>
+              <div class="col-sm-9">
+ 
+                <select class="form-control form-control-center" id='Type' name='Type'>
+                  <option value='null' selected>Selecione...</option>
+                  <option value='R'>Venda</option>
+                  <option value='S'>Matéria-Prima</option>
+                  <option value='B'>Ambos</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="Value" class="col-sm-3 col-form-label">Preço</label>
+              <div class="col-sm-9">
+                <input type="number" class="form-control form-control-center" placeholder="Digite aqui..." required=''
+                  id="Value" name="Value">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Gravar</button>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" role='tabpanel' id='Find'>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3>Pesquisar</h3>
+        </div>
+        <div class="card-body">
+          <table id="data_table" class="table table-hover">
+            <thead>
+              <tr>
+                <th>Descrição</th>
+                <th class="nosort">Código de barras</th>
+                <th>Preço</th>
+                <th class="nosort">&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each Product}}
+              <tr>
+                <td>{{Description}}</td>
+                <td>{{Barcode}}</td>
+                <td>{{Value}}</td>
+                <td>
+                  <div class="table-actions">
+                    <button type="button" class="btn btn-icon btn-primary" onclick="view('{{_id}}')" data-toggle="modal"
+                      data-target="#Modal"><i class="ik ik-eye"></i></button>
+                    <button type="button" class="btn btn-icon btn-success" onclick="edit('{{_id}}')" data-toggle="modal"
+                      data-target="#Modal"><i
+                        class="ik ik-edit-2"></i></button>
+                    <button type="button" class="btn btn-icon btn-danger" onclick="delet('{{_id}}')"><i
+                        class="ik ik-trash-2"></i></button>
+                  </div>
+                </td>
+              </tr>
+              {{else}}
+              <tr>
+                <th class="text-center" colspan="4">Sem dados</th>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{!-- Modal  --}}
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" style="display: none;"
+  aria-hidden="true">
+  <div class="modal-dialog  modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">Detalhes Produto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <form class="forms-sample" id='EditForm'></form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

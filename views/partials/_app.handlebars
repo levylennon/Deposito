@@ -1,0 +1,67 @@
+{{!-- {{#if user}} --}}
+<div class="modal fade apps-modal" id="appsModal" tabindex="-1" role="dialog" aria-labelledby="appsModalLabel"
+    aria-hidden="true" data-backdrop="false">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="ik ik-x-circle"></i></button>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="quick-search">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 ml-auto mr-auto">
+                            <div class="input-wrap">
+                                <input type="text" id="quick-search" class="form-control" placeholder="Buscar..." />
+                                <i class="ik ik-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body d-flex align-items-center">
+                <div class="container">
+                    <div class="apps-wrap">
+
+                        <div class="app-item">
+                            <a href="/"><i class="ik ik-home"></i><span>Inicio</span></a>
+                        </div>
+
+                        <div class="app-item">
+                            <a href="Client"><i class="ik ik-users"></i><span>Clientes</span></a>
+                        </div>
+                        <div class="app-item">
+                            <a href="Product"><i class="ik ik-package"></i><span>Produtos</span></a>
+                        </div>
+
+                         <div class="app-item">
+                            <a href="#"><i class="ik ik-briefcase"></i><span>Compras</span></a>
+                        </div> 
+
+                        <div class="app-item">
+                            <a href="/Measure"><i class="fas fa-balance-scale"></i><span>Unidade Medida</span></a>
+                        </div>
+
+                        <div class="app-item">
+                            <a href="/Stock"><i class="fas fa-boxes"></i><span>Estoque</span></a>
+                        </div>
+
+                        <div class="app-item">
+                            <a href="/User"><i class="ik ik-user"></i><span>Usuário</span></a>
+                        </div>
+
+                        <div class="app-item">
+                            <a href="/Production"><i class="ik ik-clipboard"></i><span>Produção</span></a>
+                        </div>
+
+                        <div class="app-item">
+                            <a href="/Recipe"><i class="fas fa-exchange-alt"></i><span>Receita</span></a>
+                        </div>
+
+                        <div class="app-item">
+                            <a href="/Delivery"><i class="ik ik-truck"></i><span>Entregas</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- {{/if}} --}}

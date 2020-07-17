@@ -1,0 +1,61 @@
+<div class="col-12">
+    <div class="card social-card">
+        <div class="card-body text-center">
+            <h2 class="text-facebook mb-20"><i class="ik ik-clipboard"></i></h2>
+            <h3 class="text-facebook fw-700">Produção</h3>
+        </div>
+    </div>
+</div>
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-header justify-content-center">
+            <nav class="nav nav-pills flex-column flex-sm-row">
+                <a class="flex-sm-fill text-sm-center nav-link" data-toggle='tab' href="#Pending">Pendentes</a>
+                <a class="flex-sm-fill text-sm-center nav-link" data-toggle='tab' href="#Production">Em Produção</a>
+            </nav>
+        </div>
+        <div class="card-body">
+            <form action="Funcionario/view" method="POST">
+                <div class="tab-content">
+                    <div class="tab-pane" role='tabpanel' id='Pending'>
+                        <table id="data_table_Pending" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Entrega</th>
+                                    <th>Prioridade</th>
+                                    <th>Status</th>
+                                    <th class="nosort">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody id='Grid_Pendente'></tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" role='tabpanel' id='Production'>
+                        <table id="data_table_Production" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Entrega</th>
+                                    <th>Prioridade</th>
+                                    <th>Status</th>
+                                    <th class="nosort">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody id='Grid_Production'></tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div id="myModal" class="modal_Img">
+    <!-- The Close Button -->
+    <span class="close_img">&times;</span>
+    <!-- Modal Content (The Image) -->
+    <img class="modal-Img" id="img01">
+</div>

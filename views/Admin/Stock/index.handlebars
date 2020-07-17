@@ -1,0 +1,152 @@
+{{#each error}}
+<div class="alert alert-danger">{{text}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{/each}}
+
+<div class="col-12">
+    <div class="card social-card">
+        <div class="card-body text-center">
+            <h2 class="text-facebook mb-20"><i class="fas fa-boxes"></i></h2>
+            <h3 class="text-facebook fw-700">Estoque</h3>
+            <hr class="my-4 rgba-white-light">
+
+            <div class="nav pt-2 justify-content-center">
+
+                <nav class="nav nav-pills flex-column flex-sm-row">
+                    <a class="btn btn-outline-primary btn-lg mr-3" data-toggle='tab' href="#Manager">Gerenciar</a>
+                    <a class="btn btn-outline-primary btn-lg" data-toggle='tab' href="#Stock">Estoque</a>
+
+                </nav>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="tab-content">
+    <div class="tab-pane" role='tabpanel' id='Stock'>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Cadastro</h3>
+                </div>
+                <div class="card-body">
+                    <table id="data_table" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th class="nosort">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody id='GridStock'>
+                            {{#each Product}}
+                            <tr>
+                                <td>{{_id.Description}}</td>
+                                <td>{{_id.CurrentQuantity}}</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button type="button" class="btn btn-icon btn-primary"
+                                            onclick="HistoryProduct('{{_id._id}}')" data-toggle="modal"
+                                            data-target="#Modal"><i class="fas fa-history"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{else}}
+                            <tr>
+                                <th class="text-center" colspan="4">Sem dados</th>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" role='tabpanel' id='Manager'>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Pesquisar</h3>
+                </div>
+                <div class="card-body">
+                    <form class="forms-sample" id='form_add'>
+                        <div class="form-group row">
+                            <label for="Product" class="col-3 col-form-label">Produto</label>
+                            <div class="col-9">
+                                <select class="form-control form-control-center" name='_id' id="Product">
+                                    <option value='null' selected>Selecione...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="Quantity" class="col-sm-3 col-form-label">Quantidade</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control form-control-center"
+                                    placeholder="Digite aqui..." required='' id="Quantity" name="Quantity">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Tipo</label>
+                            <div class="btn-group btn-group-toggle col-9" style="display: flex;" data-toggle="buttons">
+                                <label class="btn btn-outline-success col-6">
+                                    <input type="radio" name="Operation" id="option1" value="E">
+                                    Entrada
+                                </label>
+
+                                <label class="btn btn-outline-danger col-6">
+                                    <input type="radio" name="Operation" id="option2" value="O">
+                                    Saida
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="motive" class="col-3 col-form-label">Motivo</label>
+                            <div class="col-9">
+                                <input type="text" class="form-control form-control-center" placeholder="Digite aqui..."
+                                    required='' id="motive" name="motive" value='Entrada de Produção'>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Gravar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog  modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Histórico Produto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tipo</th>
+                            <th scope="col" style="width: 20%;">Quantidade</th>
+                            <th scope="col" style="width: 20%;">Data</th>
+                            <th scope="col" style="width: 20%;">Usuário</th>
+                        </tr>
+                    </thead>
+                    <tbody id='history'>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

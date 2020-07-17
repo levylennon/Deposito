@@ -1,0 +1,61 @@
+<div class="col-12">
+    <div class="card social-card">
+        <div class="card-body text-center">
+            <h2 class="text-facebook mb-20"><i class="fas fa-boxes"></i></h2>
+            <h3 class="text-facebook fw-700">Entrada Estoque</h3>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h3>Entrada</h3>
+        </div>
+        <div class="card-body">
+            <form class="forms-sample" id='form_add'>
+                <div class="form-group row">
+                    <label for="Product" class="col-3 col-form-label">Produto</label>
+                    <div class="col-9">
+                        <select class="form-control form-control-center" name='_id' id="Product">
+                            {{#each Data}}
+                            <option value='{{_id}}'>{{Description}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="Quantity" class="col-3 col-form-label">Quantidade</label>
+                    <div class="col-9">
+                        <input type="number" class="form-control form-control-center" placeholder="Digite aqui..."
+                            required='' id="Quantity" name="Quantity">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-3 col-form-label">Tipo</label>
+                    <div class="btn-group btn-group-toggle col-9" style="display: flex;" data-toggle="buttons">
+                        <label class="btn btn-outline-success col-12 active">
+                            <input type="radio" name="Operation" id="option1" value="E" checked>
+                            Entrada
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="motive" class="col-3 col-form-label">Motivo</label>
+                    <div class="col-9">
+                        <input type="text" class="form-control form-control-center" placeholder="Digite aqui..."
+                            required='' id="motive" name="motive" value='Entrada de Produção'>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Gravar</button>
+            </form>
+        </div>
+    </div>
+</div>

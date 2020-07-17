@@ -1,0 +1,152 @@
+<div class="col-12">
+    <div class="card social-card">
+        <div class="card-body text-center">
+            <h2 class="text-facebook mb-20"><i class="ik ik-user"></i></h2>
+            <h3 class="text-facebook fw-700">Usuário</h3>
+            <hr class="my-4 rgba-white-light">
+
+            <div class="nav pt-2 justify-content-center">
+
+                <nav class="nav nav-pills flex-column flex-sm-row">
+                    <a class="btn btn-outline-primary btn-lg mr-3" data-toggle='tab' href="#New">Adicionar</a>
+                    <a class="btn btn-outline-primary btn-lg" data-toggle='tab' href="#Find">Pesquisar</a>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="tab-content">
+    <div class="tab-pane" role='tabpanel' id='New'>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Cadastro</h3>
+                </div>
+                <div class="card-body">
+                    <form class="forms-sample" id='form_add'>
+                        <div class="form-group row">
+                            <label for="Name" class="col-sm-3 col-form-label">Nome</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control form-control-center" id="Name"
+                                    placeholder="Digite aqui..." name="Name" required=''>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="Username" class="col-sm-3 col-form-label">Usuário</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control form-control-center" placeholder="Digite aqui..."
+                                    id="Username" name="Username">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="Password" class="col-sm-3 col-form-label">Senha</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control form-control-center"
+                                    placeholder="Digite aqui..." id="Password" name="Password" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="Password1" class="col-sm-3 col-form-label">Confirme a Senha</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control form-control-center"
+                                    placeholder="Digite aqui..." id="Password1" name="Password1" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="Permission" class="col-sm-3 col-form-label">Permissão</label>
+                            <div class="col-sm-9">
+                                <select class="form-control form-control-center" name='Level' id="Permission">
+                                    <option value="0">Funcionário</option>
+                                    <option value="1">Motorista</option>
+                                    <option value="2">Administrador</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Gravar</button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" role='tabpanel' id='Find'>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Pesquisar</h3>
+                </div>
+                <div class="card-body">
+                    <table id="data_table" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th class="nosort">Usuário</th>
+                                <th class="nosort">Permissão</th>
+                                <th class="nosort">&nbsp;</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            {{#each User}}
+                            <tr>
+                                <td>{{Name}}</td>
+                                <td>{{Username}}</td>
+                                
+                                {{#compare Level 0}}
+                                <td>Funcionário</td>
+                                {{/compare}}
+                                {{#compare Level 1}}
+                                <td>Motorista</td>
+                                {{/compare}}
+                                {{#compare Level 2}}
+                                <td>Administrador</td>
+                                {{/compare}}
+                                <td>
+                                    <div class="table-actions">
+                                        <button type="button" class="btn btn-icon btn-success" onclick="edit('{{_id}}')"
+                                            data-toggle="modal" data-target="#Modal"><i
+                                                class="ik ik-edit-2"></i></button>
+                                        <button type="button" class="btn btn-icon btn-danger"
+                                            onclick="delet('{{_id}}')"><i class="ik ik-trash-2"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{!-- Modal  --}}
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog  modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Detalhes Produto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <form class="forms-sample" id='EditForm'></form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

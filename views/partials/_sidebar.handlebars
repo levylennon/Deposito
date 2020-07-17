@@ -1,0 +1,140 @@
+{{!-- {{#if user}} --}}
+<div class="app-sidebar colored">
+    <!-- Logo -->
+    <div class="sidebar-header">
+
+        <a class="header-brand" href="/">
+            <div class="logo-img">
+                <img src="/Logo.svg" class="header-brand-img" alt="logo">
+            </div>
+            <span class="text pl-3">Menu</span>
+        </a>
+
+
+        <button type="button" class="nav-toggle"><i data-toggle="expanded"
+                class="ik ik-toggle-right toggle-icon"></i></button>
+        <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
+    </div>
+    <!-- final Logo -->
+
+    <!-- Side Bar  -->
+
+    <div class="sidebar-content">
+        <div class="nav-container">
+            <nav id="main-menu-navigation" class="navigation-main">
+                {{!-- {{#compare user.Level 2}} --}}
+                <div class="nav-item {{#compare Menu 'Home'}} active {{/compare}}">
+                    <a href="/"><i class="ik ik-home"></i><span>Inicio</span></a>
+                </div>
+
+                <div class="nav-item {{#compare Menu 'Client'}} active {{/compare}}">
+                    <a href="/Client"><i class="ik ik-users"></i><span>Clientes</span></a>
+                </div>
+
+                <div class="nav-item {{#compare Menu 'Product'}} active {{/compare}}">
+                    <a href="/Product"><i class="ik ik-package"></i><span>Produtos</span></a>
+                </div>
+
+                <div class="nav-item {{#compare Menu 'Measure'}} active {{/compare}}">
+                    <a href="/Measure"><i class="fas fa-balance-scale"></i><span>Unidade Medida</span></a>
+                </div>
+
+                <div class="nav-item {{#compare Menu 'Stock'}}  active {{/compare}} ">
+                    <a href="/Stock"><i class="fas fa-boxes"></i><span>Estoque</span></a>
+                </div>
+
+                <div class="nav-item {{#compare Menu 'User'}} active {{/compare}} ">
+                    <a href="/User"><i class="ik ik-user"></i><span>Usuário</span></a>
+                </div>
+
+                <div class="nav-item {{#compare Menu 'Production'}} active {{/compare}}">
+                    <a href="/Production"><i class="ik ik-clipboard"></i><span>Produção</span></a>
+                </div>
+
+                <div class="nav-item {{#compare Menu 'Recipe'}} active {{/compare}}">
+                    <a href="/Recipe"><i class="fas fa-exchange-alt"></i><span>Receita</span></a>
+                </div>
+
+                <div class="nav-item {{#compare Menu 'Delivery'}} active {{/compare}}">
+                    <a href="/Delivery"><i class="ik ik-truck"></i><span>Entregas</span></a>
+                </div>
+
+                <div class="nav-lavel">Desenvolvimento</div>
+
+                <div class="nav-item {{#compare Menu 'Purchase'}} active {{/compare}}">
+                    <a href="/Purchase"><i class="fas fa-shopping-cart"></i><span>Compras</span></a>
+                </div>
+
+                <div class="nav-item {{#compare Menu 'Supplier'}} active {{/compare}}">
+                    <a href="/Supplier"><i class="fas fa-industry"></i><span>Fornecedor</span></a>
+                </div>
+                <div class="nav-lavel">Em Breve</div>
+
+
+
+                <div class="nav-item">
+                    <a href="#"><i class="ik ik-tag"></i><span>Vendas</span></a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="#"><i class="ik ik-trending-down"></i><span>Contas à Pagar</span></a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="#"><i class="ik ik-trending-up"></i><span>Contas a Receber</span></a>
+                </div>
+
+
+                <div class="nav-item">
+                    <a href="#"><i class="fas fa-piggy-bank"></i><span>Caixa</span></a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="#"><i class="fas fa-wrench"></i><span>Serviço</span></a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="#"><i class="fas fa-file-medical-alt"></i><span>Orçamento</span></a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="#"><i class="fas fa-receipt"></i><span>Recibo</span></a>
+                </div>
+
+
+                <div class="nav-item">
+                    <a href="#"><i class="ik ik-file-text"></i><span>Relatórios</span></a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="#"><i class="fas fa-file-invoice"></i><span>Forma de Pagamento</span></a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="#"><i class="fas fa-file-invoice"></i><span>Natureza de Operação</span></a>
+                </div>
+
+                {{!-- {{/compare}} --}}
+
+                {{#compare user.Level 0}}
+                <div class="nav-item {{#compare Menu 'Producao'}} active {{/compare}}">
+                    <a href="/Funcionario"><i class="ik ik-clipboard"></i><span>Produção</span></a>
+                </div>
+
+                <div class="nav-item {{#compare Menu 'Stock'}}  active {{/compare}} ">
+                    <a href="/Funcionario/Stock"><i class="fas fa-boxes"></i><span>Estoque</span></a>
+                </div>
+
+                {{/compare}}
+
+                {{#compare user.Level 1}}
+                <div class="nav-item {{#compare Menu 'Delivery'}} active {{/compare}}">
+                    <a href="/Delivery"><i class="ik ik-truck"></i><span>Entregas</span></a>
+                </div> --}}
+                {{/compare}}
+
+            </nav>
+        </div>
+    </div>
+</div>
+{{!-- {{/if}} --}}

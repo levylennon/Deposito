@@ -1,0 +1,160 @@
+<div class="col-12">
+    <div class="card social-card">
+        <div class="card-body text-center">
+            <h2 class="text-facebook mb-20"><i class="ik ik-clipboard"></i></h2>
+            <h3 class="text-facebook fw-700">Detalhes Produção</h3>
+        </div>
+    </div>
+</div>
+
+{{#each Data}}
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <form class='mt-2' id='form_entregar'>
+                <input type="hidden" class="form-control" id='_id' value="{{_id._id}}">
+                <div class="form-row ">
+                    <div class="col-8">
+                        <label for="client">Cliente</label>
+                        {{#each _id.Client}}
+                        <input type="text" class="form-control" value='{{Name}}' disabled>
+                        {{/each}}
+                    </div>
+                    <div class="col-4">
+                        <label>Prioridade</label>
+                        <div class="btn-group btn-group-toggle" style="display: flex;" data-toggle="buttons">
+                            {{#compare _id.Priority 'L'}}
+                            <label class="btn btn-outline-primary col-12 active">
+                                <input type="radio" disabled>
+                                Baixa
+                            </label>
+                            {{/compare}}
+                            {{#compare _id.Priority 'A'}}
+                            <label class="btn btn-outline-warning col-12 active">
+                                <input type="radio" disabled>
+                                Média
+                            </label>
+                            {{/compare}}
+                            {{#compare _id.Priority 'H'}}
+                            <label class="btn btn-outline-danger  col-12 active">
+                                <input type="radio" disabled>
+                                Alta
+                            </label>
+                            {{/compare}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                        <label>Data Inicio</label>
+                        <input type="date" class="form-control" value="{{formatTime _id.StartDate "YYYY-MM-DD"}}"
+                            disabled>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label>Data Entrega</label>
+                        <input type="date" class="form-control" value="{{formatTime _id.DeliveryDate "YYYY-MM-DD"}}"
+                            disabled>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Endereço Entrega</label>
+                        <input type="text" class="form-control" value="{{_id.AdressDelivery}}" disabled>
+                    </div>
+                </div>
+
+                {{#compare _id.Status.Status 'F'}}
+                <button class="btn btn-primary col-12" role="submit">Entregar</button>
+                {{/compare}}
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class='col-12'>
+    <div class="card">
+        <div class="card-header justify-content-center">
+            <h3>Produtos</h3>
+        </div>
+
+        <div class="card-body">
+
+            <table id="data_table_All" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center">Tipo</th>
+                        <th class="text-center">Produto</th>
+                        <th class="nosort text-center">Quantidade</th>
+                        <th class="nosort text-center">Foto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each _id.Product}}
+                    <tr>
+                        {{#compare Type 'C'}}
+                        <td class="text-center">Personalizado</td>
+                        {{/compare}}
+                        {{#compare Type 'N'}}
+                        <td class="text-center">Normal</td>
+                        {{/compare}}
+                        <td>{{DescriptionProduct}}</td>
+                        <td class="text-center">{{ProductQuantity}}</td>
+                        {{#if Image}}
+                        <th class="text-center">
+                            <button type="button" onclick="ShowImage('{{Image}}')" class="btn btn-link btn-sm">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-image"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M14.002 2h-12a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm-12-1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12z" />
+                                    <path
+                                        d="M10.648 7.646a.5.5 0 0 1 .577-.093L15.002 9.5V14h-14v-2l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71z" />
+                                    <path fill-rule="evenodd" d="M4.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                                </svg>
+                            </button>
+                        </th>
+                        {{/if}}
+                        {{#compare Image undefined }}
+                        <th class="text-center">
+                            <button type="button" class="btn btn-link btn-sm" disabled>
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-image"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M14.002 2h-12a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm-12-1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12z" />
+                                    <path
+                                        d="M10.648 7.646a.5.5 0 0 1 .577-.093L15.002 9.5V14h-14v-2l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71z" />
+                                    <path fill-rule="evenodd" d="M4.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                                </svg>
+                            </button>
+                        </th>
+                        {{/compare}}
+                    </tr>
+                    {{/each}}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total:</th>
+                        <th>&nbsp;</th>
+                        <th class="text-center">{{SumQuantity}}</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    {{#compare _id.Status.Status 'A'}}
+    <a class="btn btn-primary mb-4 col-12" href="/Production" role="button">Voltar</a>
+    {{/compare}}
+    {{#compare _id.Status.Status 'P'}}
+    <a class="btn btn-primary mb-4 col-12" href="/Production" role="button">Voltar</a>
+    {{/compare}}
+    {{#compare _id.Status.Status 'F'}}
+    <a class="btn btn-primary mb-4 col-12" href="/Delivery" role="button">Voltar</a>
+    {{/compare}}
+</div>
+
+<div id="myModal" class="modal_Img">
+    <span class="close_img">&times;</span>
+    <img class="modal-Img" id="img01">
+</div>
+{{/each}}
