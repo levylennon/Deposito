@@ -7,11 +7,14 @@ require("../models/UserModel");
 require("../models/MeasuresModel");
 require("../models/ProductionModel.Js");
 require("../models/ClientModel");
+require("../models/EstadosModel");
+
 const MeasuresModel = mongoose.model("measures");
 const ProductModel = mongoose.model("product");
 const UserModel = mongoose.model("user");
 const ProductionModel = mongoose.model("production");
 const ClientModel = mongoose.model("client");
+const EstadosModel = mongoose.model("estados");
 // Crypt
 const bcrypt = require("bcryptjs");
 // Auth
@@ -130,7 +133,6 @@ Router.get("/DeletProduct/:id", (req, res) => {
 });
 
 Router.post("/AddProduct", (req, res) => {
-  
   const newProduct = {
     Description: req.body.Description,
     Barcode: req.body.Barcode,
@@ -141,12 +143,11 @@ Router.post("/AddProduct", (req, res) => {
       {
         Operation: "C",
         Quantity: 0,
-        Motive: 'Cadastro',
+        Motive: "Cadastro",
         User: req.body.User,
       },
     ],
   };
- 
 
   new ProductModel(newProduct)
     .save()
@@ -265,7 +266,6 @@ Router.get("/HistoryProduct/:id", (req, res) => {
 Router.post("/UpdateStock", (req, res) => {
   let Data = [];
 
-
   if (req.body.Operation == "O") {
     Data = {
       Operation: req.body.Operation,
@@ -293,7 +293,7 @@ Router.post("/UpdateStock", (req, res) => {
           res.send("success");
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           res.send(err);
         });
     })
@@ -602,4 +602,15 @@ Router.get("/Home", (req, res) => {
     });
 });
 
+// -------------------------------------------------------
+
+Router.get("/Estado/:uf", (req, res) => {
+  EstadosModel.find({ sigla_uf: req.params.uf }, {cidades: 1})
+    .then((Data) => {
+      res.json(Data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
 module.exports = Router;
