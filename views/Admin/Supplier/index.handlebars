@@ -33,56 +33,66 @@
                         <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#Address" role="tab"
                             aria-controls="pills-profile" aria-selected="false">Endereço</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-setting-tab" data-toggle="pill" href="#AdditionalData" role="tab"
-                            aria-controls="pills-setting" aria-selected="false">Dados Adicionais</a>
-                    </li>
                 </ul>
 
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade" id="Dados" role="tabpanel" aria-labelledby="pills-timeline-tab">
                         <div class="card-body">
-                            <form class="form-horizontal">
+                            <form class="form-horizontal" autocomplete="off">
                                 <div class="row">
-                                    <div class="form-group col-6">
-                                        <label>Razão Social</label>
-                                        <input type="text" class="form-control">
+
+                                    <div class="class-form col-2">
+                                        <label for="SelectTipo">Tipo de Pessoa</label>
+                                        <select name="Tipo" class="form-control" id='SelectTipo'>
+                                            <option value="PJ">Pessoa Jurídica</option>
+                                            <option value="PF">Pessoa Física</option>
+                                        </select>
                                     </div>
-                                    <div class="form-group col-6">
-                                        <label>Nome Fantasia</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-4">
-                                        <label>CNPJ</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                    <div class="form-group col-4">
-                                        <label>Inscrição Estadual</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                    <div class="form-group col-4">
-                                        <label>Inscrição Municipal</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-1">
-                                        <label>DDD</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                    <div class="form-group col-3">
-                                        <label>Telefone</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                    <div class="form-group col-3">
-                                        <label>Celular</label>
-                                        <input type="text" class="form-control">
+
+                                    <div class="form-group col-5">
+                                        <label for="InputRazaoSocial">Razão Social</label>
+                                        <input type="text" class="form-control" id="InputRazaoSocial"
+                                            name="RazaoSocial">
                                     </div>
                                     <div class="form-group col-5">
-                                        <label>E-mail</label>
-                                        <input type="text" class="form-control">
+                                        <label for="InputNomeFantasia">Nome Fantasia</label>
+                                        <input type="text" class="form-control" id="InputNomeFantasia"
+                                            name="NomeFantasia">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-4">
+                                        <label for="InputCNPJ">CNPJ</label>
+                                        <div class="input-group input-group-button">
+                                            <input type="text" class="form-control" id="InputCNPJ" name="CNPJ">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button"
+                                                    id='ButtonCNPJ'>Buscar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <label for="InputInscEstadual">Inscrição Estadual</label>
+                                        <input type="text" class="form-control" id="InputInscEstadual"
+                                            name="InscEstadual">
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <label for="InputInscMun">Inscrição Municipal</label>
+                                        <input type="text" class="form-control" id="InputInscMun" name="InscMunicipal">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-3">
+                                        <label for="InputCelular">(DDD) Celular</label>
+                                        <input type="text" class="form-control" id="InputCelular" name="Celular">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="InputCelularAlt">(DDD) Celular Alternativo</label>
+                                        <input type="text" class="form-control" id="InputCelularAlt" name="CelularAlt">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="InputEmail">E-mail</label>
+                                        <input type="email" class="form-control" id="InputEmail" name="Email">
                                     </div>
                                 </div>
                             </form>
@@ -95,7 +105,7 @@
                                 <div class="form-group col-3">
                                     <label for="InputCEP">CEP</label>
                                     <div class="input-group input-group-button">
-                                        <input type="text" class="form-control" id='InputCEP' name='CEP' name="CEP">
+                                        <input type="text" class="form-control" id='InputCEP' name='CEP'>
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button" id='ButtonCEP'>Buscar</button>
                                         </div>
@@ -146,7 +156,6 @@
 
                             </div>
                             <div class="row">
-
                                 <div class="form-group col-1">
                                     <label for="InputNumero">Numero</label>
                                     <input type="text" class="form-control" id='InputNumero' name='Numero'>
@@ -163,11 +172,6 @@
                                 </div>
 
                             </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="AdditionalData" role="tabpanel" aria-labelledby="pills-setting-tab">
-                        <div class="card-body">
-                            Adicional Dados
                         </div>
                     </div>
                 </div>

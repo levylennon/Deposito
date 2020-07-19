@@ -13,7 +13,7 @@ const { Authentication } = require("../helpers/Authentication.js");
 
 Router.get("/", (req, res) => {
   res.render("Admin/Supplier/index", {
-    title: "Premol-Liriosaaa",
+    title: "Premol-Lirios",
     style: {
       style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
       style2: "plugins/ionicons/dist/css/ionicons.min.css",
@@ -33,6 +33,7 @@ Router.get("/", (req, res) => {
       js7: "js/theme.min.js",
       js8: "js/pages/xhttp.js",
       js9: "js/pages/Supplier.js",
+      js10: "plugins/Mask/src/jquery.mask.js",
     },
     Menu: "Supplier",
   });

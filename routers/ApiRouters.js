@@ -9,6 +9,9 @@ require("../models/ProductionModel.Js");
 require("../models/ClientModel");
 require("../models/EstadosModel");
 
+// Request pages out server
+const axios = require("axios");
+
 const MeasuresModel = mongoose.model("measures");
 const ProductModel = mongoose.model("product");
 const UserModel = mongoose.model("user");
@@ -613,4 +616,27 @@ Router.get("/Estado/:uf", (req, res) => {
       res.json(err);
     });
 });
+// -----------------------------------------------------
+
+Router.get("/Supplier/CNPJ/:cnpj", (req, res) => {
+  axios({
+    "method":"GET",
+    "url":"https://consulta-cnpj-gratis.p.rapidapi.com/companies/" + req.params.cnpj,
+    "headers":{
+    "content-type":"application/octet-stream",
+    "x-rapidapi-host":"consulta-cnpj-gratis.p.rapidapi.com",
+    "x-rapidapi-key":"93a66f2439msh99d81af112481cdp10a54bjsn9049844d42ca",
+    "useQueryString":true
+    }
+    })
+    .then((response)=>{
+      res.send(response.data)
+    })
+    .catch((error)=>{
+      console.log(error)
+      res.send('{"Status":"error"}')
+    })
+
+})
+
 module.exports = Router;
