@@ -20,7 +20,7 @@ const { Authentication } = require("../helpers/Authentication.js");
 // Delivery Home
 Router.get("/", (req, res) => {
   res.render("employee/production/index", {
-    title: "Premol-Lirios",
+    title: "LL-System",
     style: {
       style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
       style2: "plugins/ionicons/dist/css/ionicons.min.css",
@@ -119,7 +119,7 @@ Router.post("/view", (req, res) => {
   ])
     .then((Data) => {
       res.render("employee/production/view", {
-        title: "Premol-Lirios",
+        title: "LL-System",
         style: {
           style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
           style2: "plugins/ionicons/dist/css/ionicons.min.css",

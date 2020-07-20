@@ -14,7 +14,7 @@ const { Authentication } = require("../helpers/Authentication.js");
 Router.route("/").get( (req, res) => {
   ClientModel.find().then((Client) => {
     res.render("Admin/Client/Index", {
-      title: "Premol-Lirios",
+      title: "LL-System",
       style: {
         style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
         style2: "plugins/ionicons/dist/css/ionicons.min.css",

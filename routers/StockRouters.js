@@ -31,7 +31,7 @@ Router.route("/").get( (req, res) => {
     .sort({ Description: "desc" })
     .then((Product) => {
       res.render("Admin/Stock/Index", {
-        title: "Premol-Lirios",
+        title: "LL-System",
         style: {
           style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
           style2: "plugins/ionicons/dist/css/ionicons.min.css",

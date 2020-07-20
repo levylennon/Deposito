@@ -16,7 +16,7 @@ Router.get("/",  (req, res) => {
   MeasuresModel.find({}, { _id: 1, Description: 1, Abbreviation: 1 }).then(
     (Data) => {
       res.render("Admin/Measures/Index", {
-        title: "Premol-Lirios",
+        title: "LL-System",
         style: {
           style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
           style2: "plugins/ionicons/dist/css/ionicons.min.css",

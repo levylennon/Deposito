@@ -15,7 +15,7 @@ Router.get("/", (req, res) => {
   UserModel.find()
     .then((User) => {
       res.render("Admin/User/Index", {
-        title: "Premol-Lirios",
+        title: "LL-System",
         style: {
           style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
           style2: "plugins/ionicons/dist/css/ionicons.min.css",

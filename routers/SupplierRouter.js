@@ -13,7 +13,7 @@ const { Authentication } = require("../helpers/Authentication.js");
 
 Router.get("/", (req, res) => {
   res.render("Admin/Supplier/index", {
-    title: "Premol-Lirios",
+    title: "LL-System",
     style: {
       style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
       style2: "plugins/ionicons/dist/css/ionicons.min.css",

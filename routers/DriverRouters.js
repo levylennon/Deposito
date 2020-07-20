@@ -36,7 +36,7 @@ Router.get("/", (req, res) => {
     },
   ]).then((Production) => {
     res.render("Driver/Delivery/Index", {
-      title: "Premol-Lirios",
+      title: "LL-System",
       style: {
         style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
         style2: "plugins/ionicons/dist/css/ionicons.min.css",
@@ -106,7 +106,7 @@ Router.post("/view", (req, res) => {
   ])
     .then((Data) => {
       res.render("Driver/Delivery/view", {
-        title: "Premol-Lirios",
+        title: "LL-System",
         style: {
           style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
           style2: "plugins/ionicons/dist/css/ionicons.min.css",

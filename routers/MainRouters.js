@@ -20,7 +20,7 @@ const { Authentication } = require("../helpers/Authentication.js");
 // Home
 Router.get("/", (req, res) => {
   res.render("index", {
-    title: "Premol-Lirios",
+    title: "LL-System",
     style: {
       style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
       style2: "plugins/icon-kit/dist/css/iconkit.min.css",
@@ -44,7 +44,7 @@ Router.get("/", (req, res) => {
 Router.route("/Login")
   .get((req, res) => {
     res.render("login/index", {
-      title: "Premol-Lirios",
+      title: "LL-System",
       style: {
         style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
         style2: "plugins/ionicons/dist/css/ionicons.min.css",

@@ -39,7 +39,7 @@ Router.get("/", (req, res) => {
     },
   ]).then((Production) => {
     res.render("Admin/Delivery/Index", {
-      title: "Premol-Lirios",
+      title: "LL-System",
         style: {
           style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
           style2: "plugins/ionicons/dist/css/ionicons.min.css",

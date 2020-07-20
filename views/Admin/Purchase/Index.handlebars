@@ -116,6 +116,7 @@
                                     <th>Quantidade</th>
                                     <th>Valor Unitário</th>
                                     <th>Valor Total</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -128,92 +129,12 @@
                                 <th></th>
                                 <th></th>
                                 <th id='total_produto'></th>
+                                <th></th>
                             </tfoot>
                         </table>
                     </form>
 
 
-                </div>
-            </div>
-        </div>
-        <div id="test"></div>
-        {{!--  </div>style="display: none;"> --}}
-
-        <div class="col-12" id='ProductList' style="display: none;">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Produtos </h3>
-                </div>
-
-                <div class="card-body">
-
-                    <form id='form_add_product'>
-                        <div class="form-row mt-3">
-                            <div class="form-group col-md-2 mb-3">
-                                <label for="SelectType">Tipo</label>
-                                <select id="SelectType" class="form-control" onchange="ProductOperation(this.value)">
-                                    <option value='Null'>Selecione...</option>
-                                    <option value='N'>Normal</option>
-                                    <option value='C'>Personalizado</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-5 mb-6">
-                                <label for="SelectProduct">Produto</label>
-                                <div id='Operation' class="form-row">
-                                    <select id="SelectProduct" class="form-control" name='ProductAdd' disabled></select>
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-2 mb-2">
-                                <label for="ProductPrice">Valor</label>
-                                <input class="form-control" type="number" id='ProductPrice' disabled>
-                            </div>
-
-                            <div class="form-group col-md-2 mb-2">
-                                <label for="ProductQuantity">Quantidade</label>
-                                <input class="form-control" type="number" id='ProductQuantity' disabled>
-                            </div>
-
-                            <button type="button" class="btn btn-primary mt-4 col-1" style="height: 41px;"
-                                id='Add_products' disabled>OK</button>
-                        </div>
-                    </form>
-
-                    {{!-- Table Products  --}}
-                    <div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table id="advanced_table" class="table dataTable no-footer dtr-inline collapsed"
-                                    role="grid">
-                                    <thead>
-                                        <tr role="row">
-                                            <th>Tipo</th>
-                                            <th>Produto</th>
-                                            <th>Valor</th>
-                                            <th>Quantidade</th>
-                                            <th>Imagem</th>
-                                            <th>&nbsp;</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id='table_products'></tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>&nbsp;</th>
-                                            <th>&nbsp;</th>
-                                            <th></th>
-                                            <th></th>
-                                            <th>&nbsp;</th>
-                                            <th>&nbsp;</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-primary col-12" id='btn_gravar'
-                                disabled>Gravar</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -234,6 +155,36 @@
                 <div class="card-body">
 
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Vincular Produto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Código Fornecedor</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" disabled="" id="CodFor">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Produto Cadastrado</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" id="SelectProduct"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id='Btn_Vincular'>Vincular</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>

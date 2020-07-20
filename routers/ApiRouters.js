@@ -8,16 +8,18 @@ require("../models/MeasuresModel");
 require("../models/ProductionModel.Js");
 require("../models/ClientModel");
 require("../models/EstadosModel");
+require("../models/SupplierModel");
 
 // Request pages out server
 const axios = require("axios");
-
 const MeasuresModel = mongoose.model("measures");
 const ProductModel = mongoose.model("product");
 const UserModel = mongoose.model("user");
 const ProductionModel = mongoose.model("production");
 const ClientModel = mongoose.model("client");
 const EstadosModel = mongoose.model("estados");
+const SupplierModel = mongoose.model("supplier");
+
 // Crypt
 const bcrypt = require("bcryptjs");
 // Auth
@@ -25,6 +27,7 @@ const passport = require("passport");
 // Levels Permission
 const { isAdmin } = require("../helpers/LevelAdmin");
 const { Authentication } = require("../helpers/Authentication.js");
+const { response } = require("express");
 
 // -------------------------------- Clients
 Router.post("/AddClient", (req, res) => {
@@ -608,7 +611,7 @@ Router.get("/Home", (req, res) => {
 // -------------------------------------------------------
 
 Router.get("/Estado/:uf", (req, res) => {
-  EstadosModel.find({ sigla_uf: req.params.uf }, {cidades: 1})
+  EstadosModel.find({ sigla_uf: req.params.uf }, { cidades: 1 })
     .then((Data) => {
       res.json(Data);
     })
@@ -616,27 +619,126 @@ Router.get("/Estado/:uf", (req, res) => {
       res.json(err);
     });
 });
-// -----------------------------------------------------
-
-Router.get("/Supplier/CNPJ/:cnpj", (req, res) => {
+// ------------------------------------------------ Supplier
+// API
+Router.get("/Supplier/GetCNPJ/:cnpj", (req, res) => {
   axios({
-    "method":"GET",
-    "url":"https://consulta-cnpj-gratis.p.rapidapi.com/companies/" + req.params.cnpj,
-    "headers":{
-    "content-type":"application/octet-stream",
-    "x-rapidapi-host":"consulta-cnpj-gratis.p.rapidapi.com",
-    "x-rapidapi-key":"93a66f2439msh99d81af112481cdp10a54bjsn9049844d42ca",
-    "useQueryString":true
-    }
+    method: "GET",
+    url:
+      "https://consulta-cnpj-gratis.p.rapidapi.com/companies/" +
+      req.params.cnpj,
+    headers: {
+      "content-type": "application/octet-stream",
+      "x-rapidapi-host": "consulta-cnpj-gratis.p.rapidapi.com",
+      "x-rapidapi-key": "93a66f2439msh99d81af112481cdp10a54bjsn9049844d42ca",
+      useQueryString: true,
+    },
+  })
+    .then((response) => {
+      res.send(response.data);
     })
-    .then((response)=>{
-      res.send(response.data)
-    })
-    .catch((error)=>{
-      console.log(error)
-      res.send('{"Status":"error"}')
-    })
+    .catch((error) => {
+      console.log(error);
+      res.send('{"Status":"error"}');
+    });
+});
 
-})
+Router.post("/Supplier/Add", (req, res) => {
+  const NewSupplier = {
+    Tipo: req.body.Tipo,
+    RazaoSocial: req.body.RazaoSocial,
+    NomeFantasia: req.body.NomeFantasia,
+    CNPJ: req.body.CNPJ,
+    InscEstadual: req.body.InscEstadual,
+    InscMun: req.body.InscMun,
+    Celular: req.body.Celular,
+    CelularAlt: req.body.CelularAlt,
+    Email: req.body.Email,
+    CEP: req.body.CEP,
+    Logradouro: req.body.Logradouro,
+    Numero: req.body.Numero,
+    Complemento: req.body.Complemento,
+    Bairro: req.body.Bairro,
+    Estado: req.body.Estado,
+    Cidade: req.body.Cidade,
+  };
+
+  new SupplierModel(NewSupplier)
+    .save()
+    .then(() => {
+      res.send("saved");
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+Router.get("/Supplier", (req, res) => {
+  SupplierModel.find()
+    .then((Data) => {
+      res.send(Data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+Router.get("/Supplier/Grid", (req, res) => {
+  SupplierModel.find(
+    {},
+    { NomeFantasia: 1, RazaoSocial: 1, Estado: 1, Cidade: 1, CNPJ: 1 }
+  )
+    .then((Data) => {
+      res.send(Data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+Router.get("/Supplier/:cnpj", (req, res) => {
+  let CNPJ = req.params.cnpj.replace(
+    /(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g,
+    "$1.$2.$3/$4-$5"
+  );
+
+  SupplierModel.findOne({ CNPJ: CNPJ }, {})
+    .then((Data) => {
+      res.send(Data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+// -------------------------------------------------- Purchase
+
+Router.post("/LinkProduct", (req, res) => {
+  let CNPJ = req.body.CNPJSupplier.replace(
+    /(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g,
+    "$1.$2.$3/$4-$5"
+  );
+
+  SupplierModel.findOne({ CNPJ: CNPJ }, { Produtos: 1 })
+    .then((Data) => {
+
+      const LinkProduct = {
+        CodProduct: mongoose.Types.ObjectId(req.body.IdProduct),
+        CodSupplier: req.body.CodSupplier,
+      };
+
+      Data.Produtos.push(LinkProduct);
+      
+      Data.save()
+        .then(() => {
+          res.send("success");
+        })
+        .catch((err) => {
+          res.send(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 module.exports = Router;
