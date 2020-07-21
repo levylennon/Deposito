@@ -44,6 +44,7 @@ $(document).ready(function () {
         var ArrayProdutos = NFe.getElementsByTagName("prod");
         var tbody = document.querySelector("tbody");
 
+        // Fill header form with supplier information 
         NrNFe.val(NFe.getElementsByTagName("cNF")[0].innerHTML);
         Fornecedor.val(NFe.getElementsByTagName("xNome")[0].innerHTML);
         CNPJ.val(NFe.getElementsByTagName("CNPJ")[0].innerHTML);
@@ -62,86 +63,122 @@ $(document).ready(function () {
             "DD/MM/YYYY"
           )
         );
-        total_produto.html(NFe.getElementsByTagName("vNF")[0].innerHTML);
 
-        for (let i = 0; i < ArrayProdutos.length; i++) {
-          var tr = document.createElement("tr");
-          let td1 = document.createElement("td");
-          let td2 = document.createElement("td");
-          let td3 = document.createElement("td");
-          let td4 = document.createElement("td");
-          let td5 = document.createElement("td");
-          let td6 = document.createElement("td");
-          let td7 = document.createElement("td");
+        // check if the supplier is registered
+        xmlHttpGet(
+          "/Api/Supplier/",
+          () => {
+            success(() => {
+              let response = JSON.parse(xhttp.responseText);
+              console.log(response);
+              if (response.length === 0) {
+                return Swal.fire(
+                  "Aviso!",
+                  "Fornecedor não cadastrado!",
+                  "warning"
+                );
+              } 
+              else 
+              {
+                // Clear Data Table
+                $('tbody').html('')
 
-          let BtnView = document.createElement("button");
-          BtnView.type = "button";
-          BtnView.setAttribute("class", "btn btn-link btn-rounded");
-          // BtnView.setAttribute("data-toggle", "modal");
-          // BtnView.setAttribute("data-target", "#Modal");
-          BtnView.setAttribute("onclick", "teste(this)");
-          BtnView.innerHTML = '<i class="fas fa-ellipsis-v"></i>';
+                for (let i = 0; i < ArrayProdutos.length; i++) {
+                  var tr = document.createElement("tr");
+                  let td1 = document.createElement("td");
+                  let td2 = document.createElement("td");
+                  let td3 = document.createElement("td");
+                  let td4 = document.createElement("td");
+                  let td5 = document.createElement("td");
+                  let td6 = document.createElement("td");
+                  let td7 = document.createElement("td");
+                    // Create a button viewer
+                  let BtnView = document.createElement("button");
+                  BtnView.type = "button";
+                  BtnView.setAttribute("class", "btn social-btn btn-dribbble");
+                  BtnView.setAttribute("onclick", "LinkProduct(this)");
+                  BtnView.innerHTML = '<i class="ik ik-paperclip"></i>';
 
-          td1.innerHTML = NFe.getElementsByTagName("cProd")[i].innerHTML;
-          td2.innerHTML = NFe.getElementsByTagName("xProd")[i].innerHTML;
-          td3.innerHTML = NFe.getElementsByTagName("uCom")[i].innerHTML;
-          td4.innerHTML = NFe.getElementsByTagName("qCom")[i].innerHTML;
-          td5.innerHTML = NFe.getElementsByTagName("vUnCom")[i].innerHTML;
-          td6.innerHTML = NFe.getElementsByTagName("vProd")[i].innerHTML;
-          td7.append(BtnView);
 
-          tr.append(td1);
-          tr.append(td2);
-          tr.append(td3);
-          tr.append(td4);
-          tr.append(td5);
-          tr.append(td6);
-          tr.append(td7);
-          tbody.append(tr);
-        }
+                  td1.innerHTML = NFe.getElementsByTagName("cProd")[i].innerHTML;
+
+                  if(response[0].Product == undefined){
+                    tr.setAttribute("class", "table-danger");
+                    td2.innerHTML = NFe.getElementsByTagName("xProd")[i].innerHTML;
+                  }
+                  else{
+                    for (let ii = 0; ii < response.length; ii++) {
+                      if (response[ii].Product.CodSupplier ==  NFe.getElementsByTagName("cProd")[i].innerHTML) {
+                        BtnView.setAttribute("class", "btn btn-icon btn-outline-primary");
+                        BtnView.innerHTML = '<i class="ik ik-edit-2"></i>'; 
+  
+                        BtnView.value = response[ii].Product.CodProduct;
+                        td2.innerHTML = response[ii].Product.Description;
+                        tr.classList.remove("table-danger");
+                        break;
+                      } else {
+                        tr.setAttribute("class", "table-danger");
+                        td2.innerHTML = NFe.getElementsByTagName("xProd")[i].innerHTML;
+                      }
+                    }
+                  }
+                  td3.innerHTML = NFe.getElementsByTagName("uCom")[i].innerHTML;
+                  td4.innerHTML = NFe.getElementsByTagName("qCom")[i].innerHTML;
+                  td5.innerHTML = NFe.getElementsByTagName("vUnCom")[i].innerHTML;
+                  td6.innerHTML = NFe.getElementsByTagName("vProd")[i].innerHTML;
+                  td7.append(BtnView);
+
+                  tr.append(td1);
+                  tr.append(td2);
+                  tr.append(td3);
+                  tr.append(td4);
+                  tr.append(td5);
+                  tr.append(td6);
+                  tr.append(td7);
+                  tbody.append(tr);
+                }
+                // footer Data Table with total value
+                total_produto.html(
+                  NFe.getElementsByTagName("vNF")[0].innerHTML
+                );
+              }
+            });
+          },
+          NFe.getElementsByTagName("CNPJ")[0].innerHTML
+        );
       });
     });
-    setTimeout(() => {
-      xmlHttpGet(
-        "/Api/Supplier/",
-        () => {
-          success(() => {
-            if (xhttp.responseText === "") {
-              return Swal.fire(
-                "Aviso!",
-                "Fornecedor não cadastrado!",
-                "warning"
-              );
-            }
-          });
-        },
-        $("#CNPJ").val()
-      );
-    }, 500);
   }
 
-  window.teste = function (e) {
+  window.LinkProduct = function (e) {
     let CodFor = e.parentElement.parentElement.firstElementChild.innerHTML;
+    let Class = e.className;
+    let NameProduct = e.parentElement.parentElement.getElementsByTagName('td')[1].innerHTML;
 
-    $("#CodFor").val(CodFor);
-    $("#SelectProduct")[0].selectedIndex = 0;
-    $("#myModal").modal();
-  };
-  // load all products and fill the select modal
-  xmlHttpGet("/Api/AllProduct", () => {
-    success(() => {
-      let response = JSON.parse(xhttp.responseText);
-      let Products = "";
-      for (let i = 0; i < response.length; i++) {
-        Products += `<option value="${response[i]._id}">${response[i].Description}</option>`;
+    
+    if(Class === 'btn btn-icon btn-outline-warning')
+    {
+      $("#SelectProduct")[0].selectedIndex = 0;
+    }
+    else if(Class === 'btn btn-icon btn-outline-primary')
+    {
+      for (let i = 0; i < $('option').length; i++) {
+        if(e.value === $('option')[i].value){
+          $("#SelectProduct")[0].selectedIndex = [i];
+          break
+        } 
       }
-      $("#SelectProduct").html(Products);
-    });
-  });
+    }
+
+    $('.modal-title').html('[ ' + NameProduct + ' ]')
+    $("#CodFor").val(CodFor);
+    $("#myModal").modal()
+    
+  };
 
   $("#Btn_Vincular").on("click", function () {
     let Data = {
-      CNPJSupplier: $('#CNPJ').val(),
+      CNPJSupplier: $("#CNPJ").val(),
       CodSupplier: $("#CodFor").val(),
       IdProduct: $("#SelectProduct").val(),
     };
@@ -152,17 +189,29 @@ $(document).ready(function () {
         success(() => {
           let response = xhttp.responseText;
 
-          if(response === 'success'){
-            alert('Product Linked successful')
-          }else[
-            alert('error' + response)
-          ]
+          if (response === "success") {
+            alert("Product Linked successful");
+            FillInputsXml();
+          } else [alert("error" + response)];
         });
       },
       JSON.stringify(Data)
     );
 
+    
     // close Modal
     $("#myModal").modal("toggle");
+  });
+
+  // load all products and fill the select modal
+  xmlHttpGet("/Api/AllProduct", () => {
+    success(() => {
+      let response = JSON.parse(xhttp.responseText);
+      let Products = "";
+      for (let i = 0; i < response.length; i++) {
+        Products += `<option value="${response[i]._id}">${response[i].Description}</option>`;
+      }
+      $("#SelectProduct").html(Products);
+    });
   });
 });

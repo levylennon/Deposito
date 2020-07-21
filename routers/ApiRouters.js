@@ -676,7 +676,7 @@ Router.post("/Supplier/Add", (req, res) => {
 Router.get("/Supplier", (req, res) => {
   SupplierModel.find()
     .then((Data) => {
-      res.send(Data);
+      res.json(Data);
     })
     .catch((err) => {
       res.send(err);
@@ -702,9 +702,53 @@ Router.get("/Supplier/:cnpj", (req, res) => {
     "$1.$2.$3/$4-$5"
   );
 
-  SupplierModel.findOne({ CNPJ: CNPJ }, {})
+  SupplierModel.aggregate([
+    {
+      $match: {
+        CNPJ: CNPJ,
+      },
+    },
+    {
+      $unwind: "$Produtos",
+    },
+    {
+      $lookup: {
+        from: "products",
+        localField: "Produtos.CodProduct",
+        foreignField: "_id",
+        as: "ProductsLinked",
+      },
+    },
+  ])
     .then((Data) => {
-      res.send(Data);
+      let ArrayProductsLinked = [];
+
+      // If doesn't exist any products registered, then we need to do a search again, if existe any supplier register, i'll do return to browser
+      if (Data.length === 0) {
+        SupplierModel.findOne({ CNPJ: CNPJ }, { CNPJ: 1, _id: 0 })
+          .then((Data1) => {
+            ArrayProductsLinked.push({
+              CNPJ: Data1.CNPJ,
+            });
+            res.send(ArrayProductsLinked);
+          })
+          .catch((err) => {
+            res.send(err);
+          });
+      } else {
+        // if exist 1 or more product registered, we need do a loop and fill the array and send to browser
+        for (let i = 0; i < Data.length; i++) {
+          ArrayProductsLinked.push({
+            CNPJ: Data[i].CNPJ,
+            Product: {
+              CodProduct: Data[i].Produtos.CodProduct,
+              CodSupplier: Data[i].Produtos.CodSupplier,
+              Description: Data[i].ProductsLinked[0].Description,
+            },
+          });
+        }
+        res.send(ArrayProductsLinked);
+      }
     })
     .catch((err) => {
       res.send(err);
@@ -720,14 +764,13 @@ Router.post("/LinkProduct", (req, res) => {
 
   SupplierModel.findOne({ CNPJ: CNPJ }, { Produtos: 1 })
     .then((Data) => {
-
       const LinkProduct = {
         CodProduct: mongoose.Types.ObjectId(req.body.IdProduct),
         CodSupplier: req.body.CodSupplier,
       };
 
       Data.Produtos.push(LinkProduct);
-      
+
       Data.save()
         .then(() => {
           res.send("success");
