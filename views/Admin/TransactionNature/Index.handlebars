@@ -1,0 +1,120 @@
+<div class="col-12">
+    <div class="card social-card">
+        <div class="card-body text-center">
+            <h2 class="text-facebook mb-20"><i class="fas fa-file-invoice"></i></h2>
+            <h3 class="text-facebook fw-700">Natureza de Operação</h3>
+            <hr class="my-4 rgba-white-light">
+            <div class="nav pt-2 justify-content-center">
+                <nav class="nav nav-pills flex-column flex-sm-row">
+                    <a class="btn btn-outline-primary btn-lg mr-3 active" data-toggle='tab' href="#New">Cadastrar</a>
+                    <a class="btn btn-outline-primary btn-lg" data-toggle='tab' href="#Find">Pesquisar</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="tab-content">
+    <div class="tab-pane active" role='tabpanel' id='New'>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Entrada com XML </h3>
+                </div>
+                <div class="card-body">
+
+                    <div class="form-group row">
+                        <label class="col-3 col-form-label">Descrição</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Tipo de Entrada</label>
+                        <div class="col-sm-9">
+                            <select class="form-control">
+                                <option value="E">Entrada</option>
+                                <option value="O">Saida</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <h5 class="text-center col-12">Movimentar</h5>
+
+                    <div class="text-center">
+                        <div class="form-check-inline col-2">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input">Estoque
+                            </label>
+                        </div>
+                        <div class="form-check-inline col-2">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input">Contas à Receber
+                            </label>
+                        </div>
+
+                        <div class="form-check-inline col-2">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input">Contas à Pagar
+                            </label>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- card pesquisar  --}}
+    <div class="tab-pane" role='tabpanel' id='Find'>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header justify-content-center">
+                    <nav class="nav nav-pills flex-column flex-sm-row">
+                        <a class="flex-sm-fill text-sm-center nav-link" data-toggle='tab' href="#All">Opçãp 1</a>
+                        <a class="flex-sm-fill text-sm-center nav-link" data-toggle='tab' href="#Pending">Opçãp 2</a>
+                        <a class="flex-sm-fill text-sm-center nav-link" data-toggle='tab' href="#Production">Opçãp 3</a>
+                        <a class="flex-sm-fill text-sm-center nav-link" data-toggle='tab' href="#Finalized">Opçãp 4</a>
+                    </nav>
+                </div>
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title w-100 text-center text-danger"></h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Código Fornecedor</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" disabled="" id="CodFor">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Produto Cadastrado</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" id="SelectProduct"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id='Btn_Vincular'>Vincular</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

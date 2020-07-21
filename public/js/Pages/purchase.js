@@ -84,7 +84,7 @@ $(document).ready(function () {
                 $('tbody').html('')
 
                 for (let i = 0; i < ArrayProdutos.length; i++) {
-                  var tr = document.createElement("tr");
+                  let tr = document.createElement("tr");
                   let td1 = document.createElement("td");
                   let td2 = document.createElement("td");
                   let td3 = document.createElement("td");

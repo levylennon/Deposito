@@ -14,6 +14,7 @@ const employee  = require("./EmployeeRouters");
 const Purchase  = require("./PurchaseRouters")
 const Driver  = require("./DriverRouters");
 const Supplier  = require("./SupplierRouter");
+const TransactionNature  = require("./TransactionNature");
 
 MainRouter.use("/", MainRouters);
 MainRouter.use("/Api", Api);
@@ -35,6 +36,11 @@ MainRouter.use("/Motorista", Driver);
 // develop
 MainRouter.use("/Purchase", Purchase);
 MainRouter.use("/Supplier", Supplier);
+
+
+
+MainRouter.use("/NaturezaOperacao", TransactionNature);
+
 
 
 
