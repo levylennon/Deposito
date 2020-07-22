@@ -63,6 +63,9 @@ const Production = new Schema({
     type: Date,
     required: true,
   },
+  User:{
+    type: ObjectID
+  },
   Product: [Product],
   Status: Status,
   CreatedAt: {

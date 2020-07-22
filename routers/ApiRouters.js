@@ -447,6 +447,7 @@ Router.post("/AddProduction", (req, res) => {
     StartDate: req.body.StartDate,
     DeliveryDate: req.body.DeliveryDate,
     Product: Product,
+    User: req.body.User,
     Status: {
       Status: "A",
     },
@@ -462,8 +463,9 @@ Router.post("/AddProduction", (req, res) => {
     });
 });
 
-// ----- Updade Status and Delivery too
+// ----- Update Status and Delivery
 Router.get("/Production/:status", (req, res) => {
+  let JsonData = [];
   if (req.params.status === "T") {
     ProductionModel.aggregate([
       {
@@ -474,12 +476,50 @@ Router.get("/Production/:status", (req, res) => {
           as: "Client",
         },
       },
+      {
+        $unwind: "$Client",
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "User",
+          foreignField: "_id",
+          as: "User",
+        },
+      },
     ]).then((Data) => {
-      res.json(Data);
+
+      for (let i = 0; i < Data.length; i++) {
+        if (Data[i].User.length === 0) {
+          JsonData.push({
+            _id: Data[i]._id,
+            client: Data[i].Client.Name,
+            entrega: Data[i].DeliveryDate,
+            prioridade: Data[i].Priority,
+            Status: Data[i].Status.Status,
+            User: "",
+          });
+        } else {
+          JsonData.push({
+            _id: Data[i]._id,
+            client: Data[i].Client.Name,
+            entrega: Data[i].DeliveryDate,
+            prioridade: Data[i].Priority,
+            Status: Data[i].Status.Status,
+            User: Data[i].User[0].Name,
+          });
+        }
+      }
+
+      res.json(JsonData);
     });
   } else {
     ProductionModel.aggregate([
-      { $match: { "Status.Status": req.params.status } },
+      {
+        $match: {
+          "Status.Status": req.params.status,
+        },
+      },
       {
         $lookup: {
           from: "clients",
@@ -488,10 +528,56 @@ Router.get("/Production/:status", (req, res) => {
           as: "Client",
         },
       },
+      {
+        $unwind: "$Client",
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "User",
+          foreignField: "_id",
+          as: "User",
+        },
+      },
     ]).then((Data) => {
-      res.json(Data);
+      
+      // console.log(Data[2].User)
+      // return
+      for (let i = 0; i < Data.length; i++) {
+        if (Data[i].User.length === 0) {
+          JsonData.push({
+            _id: Data[i]._id,
+            client: Data[i].Client.Name,
+            entrega: Data[i].DeliveryDate,
+            prioridade: Data[i].Priority,
+            Status: Data[i].Status.Status,
+            User: "",
+          });
+        } else {
+          JsonData.push({
+            _id: Data[i]._id,
+            client: Data[i].Client.Name,
+            entrega: Data[i].DeliveryDate,
+            prioridade: Data[i].Priority,
+            Status: Data[i].Status.Status,
+            User: Data[i].User[0].Name,
+          });
+        }
+      }
+
+      res.json(JsonData);
     });
   }
+
+  /*
+  cliente Nome
+  Entrega
+  Prioridade
+  Status
+  ID
+
+
+  */
 });
 
 // -------------------------------------------
@@ -789,19 +875,19 @@ Router.post("/LinkProduct", (req, res) => {
 
 // -------------------------------------------------- Transactions Nature
 Router.post("/Transaction/New", (req, res) => {
-  if(req.body.Description === '') return;
-  if(req.body.Transition === '') return;
-  
+  if (req.body.Description === "") return;
+  if (req.body.Transition === "") return;
+
   const NewTransactionNature = req.body;
 
   new TransactionNature(NewTransactionNature)
-  .save()
-  .then(() => {
-    res.send("saved");
-  })
-  .catch((err) => {
-    res.send(err);
-  });
+    .save()
+    .then(() => {
+      res.send("saved");
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 });
 
 module.exports = Router;

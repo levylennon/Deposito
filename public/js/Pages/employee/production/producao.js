@@ -29,24 +29,26 @@ function Grid(Data) {
   Data.forEach((e) => {
     grid += `
 <tr>
-  <td>${e.Client[0].Name}</td>
-  <td>${moment(e.DeliveryDate).format("DD/MM/YYYY")}</td>
+  <td>${e.client}</td>
+  <td>${moment(e.entrega).format("DD/MM/YYYY")}</td>
 `;
-    if (e.Priority === "H") {
+    if (e.prioridade === "H") {
       grid += `<td>Alta</td>`;
-    } else if (e.Priority === "L") {
+    } else if (e.prioridade === "L") {
       grid += `<td>Baixa</td>`;
-    } else if (e.Priority === "A") {
+    } else if (e.prioridade === "A") {
       grid += `<td>Média</td>`;
     }
 
-    if (e.Status.Status === "A") {
+    grid += `<td>${e.User}</td>`
+
+    if (e.Status === "A") {
       grid += `<td>Pendente</td>`;
-    } else if (e.Status.Status === "P") {
+    } else if (e.Status === "P") {
       grid += `<td>Em Produção</td>`;
-    } else if (e.Status.Status === "F") {
+    } else if (e.Status === "F") {
       grid += `<td>Finalizado</td>`;
-    } else if (e.Status.Status === "E") {
+    } else if (e.Status === "E") {
       grid += `<td>Entregue</td>`;
     }
       grid += `

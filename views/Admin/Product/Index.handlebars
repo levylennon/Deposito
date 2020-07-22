@@ -8,6 +8,7 @@
       <div class="nav pt-2 justify-content-center">
 
         <nav class="nav nav-pills flex-column flex-sm-row">
+
           <a class="btn btn-outline-primary btn-lg mr-3" data-toggle='tab' href="#New">Adicionar</a>
           <a class="btn btn-outline-primary btn-lg" data-toggle='tab' href="#Find">Pesquisar</a>
         </nav>
@@ -21,68 +22,323 @@
 
 
 <div class="tab-content">
-  <div class="tab-pane" role='tabpanel' id='New'>
+  <div class="tab-pane active show" role='tabpanel' id='New'>
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3>Cadastro</h3>
+          <button class="btn btn-success mr-2" type="button">Salvar</button>
+
+          <button class="btn btn-danger" type="button">Cancelar</button>
         </div>
-        <div class="card-body">
-          <form class="forms-sample" id='form_add'>
-            <div class="form-group row">
-              <label for="Description" class="col-sm-3 col-form-label">Descrição</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control form-control-center" id="Description"
-                  placeholder="Digite aqui..." name="Description" required=''>
+        <ul class="nav nav-pills custom-pills" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link" id="pills-timeline-tab" data-toggle="pill" href="#Produto" role="tab"
+              aria-controls="pills-timeline" aria-selected="true">Produto</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#CustoValores" role="tab"
+              aria-controls="pills-profile" aria-selected="false">Custo & valores</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#DadosSecundários" role="tab"
+              aria-controls="pills-profile" aria-selected="false">Dados Secundários</a>
+          </li>
+
+          <li class="nav-item ">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#EstoqueMovimentação" role="tab"
+              aria-controls="pills-profile" aria-selected="false">Estoque & Movimentação</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade" id="Produto" role="tabpanel" aria-labelledby="pills-timeline-tab">
+            <div class="card-body">
+
+              <div class="row">
+                <div class="form-group col-4">
+                  <label for="DescriçãoProduto">Descrição do Produto</label>
+                  <input type="text" class="form-control form-control-warning" id="DescriçãoProduto">
+                </div>
+
+                <div class="form-group col-3">
+                  <label for="BarCode">Código de Barras</label>
+                  <input type="text" class="form-control" id="BarCode">
+                </div>
+
+                <div class="form-group col-2">
+                  <label for="BarCode">Ativo</label>
+                  <select name="" id="UnidadeMedida" class="form-control">
+                    <option value="0">Sim</option>
+                    <option value="1">Não</option>
+
+                  </select>
+                </div>
+
+                <div class="form-group col-3">
+                  <label for="BarCode">Finalidade</label>
+                  <div class="form-group">
+
+                    <select class="form-control form-control-center" id='Type' name='Type'>
+                      <option value='R'>Mercadoria para Revenda</option>
+                      <option value='S'>Mercadoria para Matéria-Prima</option>
+                    </select>
+
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="row">
+                <div class="form-group col-3">
+                  <label for="BarCode">Código Interno</label>
+                  <input type="text" class="form-control" id="BarCode">
+                </div>
+                <div class="form-group col-3">
+                  <label for="BarCode">Código do Fabricante</label>
+                  <input type="text" class="form-control" id="BarCode">
+                </div>
+                <div class="form-group col-3">
+                  <label for="UnidadeMedida">Unidade de Medida</label>
+                  <div class="input-group input-group-button">
+                    <select name="" id="UnidadeMedida" class="form-control">
+                      {{#each Measure}}
+                      <option value='{{_id}}'>{{Description}}</option>
+                      {{/each}}
+                    </select>
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">Novo</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-3">
+                  <label for="UnidadeMedida">Grupo</label>
+                  <div class="input-group input-group-button">
+                    <select name="" id="UnidadeMedida" class="form-control">
+
+                    </select>
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">Novo</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="row col-8">
+                  <div class="form-group col-3">
+                    <label for="BarCode">NCM</label>
+                    <div class="input-group input-group-button">
+                      <input type="text" class="form-control form-control-warning">
+                      <div class="input-group-append">
+                        <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-9">
+                    <label for="BarCode">Descrição NCM / Tributação</label>
+                    <input type="text" class="form-control" readonly>
+                  </div>
+
+
+                  <div class="form-group col-12">
+                    <label for="UnidadeMedida">Origem Produto</label>
+
+                    <select name="" id="UnidadeMedida" class="form-control">
+                      <option value="0">0 - Nacional, exceto as indicadas nos códigos 3 a 5</option>
+                      <option value="1">1 - Estrangeira - Importação direta, exceto a indicada no código 6</option>
+                      <option value="2">2 - Estrangeira - Adquirida no mercado interno, exceto a indicada no código 7
+                      </option>
+                      <option value="3">3 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 40%;
+                      </option>
+                      <option value="4">4 - Nacional, cuja produção tenha sido feita em conformidade com os processos
+                        produtivos básicos de que tratam o Decreto-Lei nº 288/1967 , e as Leis nºs 8.248/1991,
+                        8.387/1991, 10.176/2001 e 11.484/2007</option>
+                      <option value="5">5 - Nacional, mercadoria ou bem com Conteúdo de Importação inferior ou igual a
+                        40%</option>
+                      <option value="6">6 - Estrangeira - Importação direta, sem similar nacional, constante em lista de
+                        Resolução Camex e gás natural</option>
+                      <option value="7">7 - Estrangeira - Adquirida no mercado interno, sem similar nacional, constante
+                        em lista de Resolução Camex e gás natural. </option>
+                    </select>
+                  </div>
+                </div>
+
+
+
+                <div class="row col-4 ">
+
+                  <div class="form-group col-6 ">
+                    <label for="BarCode">Qtd. Estoque</label>
+                    <input type="text" class="form-control">
+                  </div>
+                  <div class="form-group col-6">
+                    <label for="BarCode">Qtd. Min.</label>
+                    <input type="text" class="form-control" id="BarCode">
+                  </div>
+                  <div class="form-group col-6">
+                    <label for="BarCode">Qtd. Máx.</label>
+                    <input type="text" class="form-control" id="BarCode">
+                  </div>
+                  <div class="form-group col-6">
+                    <label for="BarCode">Qtd. Disponível</label>
+                    <input type="text" class="form-control" id="BarCode">
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="form-group col-12">
+                  <label for="exampleFormControlTextarea1">Informações Adicionais</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                    style="resize: none;"></textarea>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="tab-pane fade " id="CustoValores" role="tabpanel" aria-labelledby="pills-timeline-tab">
+            <div class="card-body">
+
+              <div class="row">
+                <div class="form-group col-2">
+                  <label for="DescriçãoProduto">Custo Atual</label>
+                  <input type="text" class="form-control form-control-warning" id="DescriçãoProduto">
+                </div>
+
+                <div class="form-group col-2">
+                  <label for="BarCode">Custo Médio</label>
+                  <input type="text" class="form-control" id="BarCode" readonly>
+                </div>
+
+                <div class="form-group col-2">
+                  <label for="DescriçãoProduto">Margem de lucro %</label>
+                  <input type="text" class="form-control" id="DescriçãoProduto">
+                </div>
+
+                <div class="form-group col-2">
+                  <label for="DescriçãoProduto">Preço de Promoção</label>
+                  <input type="text" class="form-control" id="DescriçãoProduto">
+                </div>
+
+                <div class="form-group col-2">
+                  <label for="DescriçãoProduto">Margem de lucro %</label>
+                  <input type="text" class="form-control" id="DescriçãoProduto">
+                </div>
+
+                <div class="form-group col-2">
+                  <label for="DescriçãoProduto">Preço de Venda</label>
+                  <input type="text" class="form-control" id="DescriçãoProduto">
+                </div>
+
+
               </div>
             </div>
+          </div>
+          <div class="tab-pane fade active show" id="DadosSecundários" role="tabpanel"
+            aria-labelledby="pills-timeline-tab">
 
-            <div class="form-group row">
-              <label for="Barcode" class="col-sm-3 col-form-label">Código de Barras</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control form-control-center" placeholder="Digite aqui..." 
-                  id="Barcode" name="Barcode">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-7">
+                  <div class="row">
+                    <div class="form-group col-5">
+                      <label for="DescriçãoProduto">Setor Produto</label>
+                      <div class="input-group input-group-button">
+                        <select name="" id="UnidadeMedida" class="form-control">
+                        </select>
+                        <div class="input-group-append">
+                          <button class="btn btn-primary" type="button">Novo</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-7">
+                      <label for="BarCode">Local</label>
+                      <input type="text" class="form-control" id="BarCode">
+                    </div>
+
+                    <div class="form-group col-5">
+                      <label for="DescriçãoProduto">Marca</label>
+                      <div class="input-group input-group-button">
+                        <select name="" id="UnidadeMedida" class="form-control">
+                        </select>
+                        <div class="input-group-append">
+                          <button class="btn btn-primary" type="button">Novo</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-3">
+                      <label for="BarCode">Produto gera Comissão</label>
+                      <div class="form-group">
+
+                        <select class="form-control form-control-center" id='Type' name='Type'>
+                          <option value='R'>Sim</option>
+                          <option value='S'>Não</option>
+                        </select>
+
+                      </div>
+                    </div>
+                    <div class="form-group col-4">
+                      <label for="BarCode">Comissão %</label>
+                      <input type="text" class="form-control" id="BarCode">
+                    </div>
+
+                    <div class="form-group col-4">
+                      <label for="BarCode">CFOP dentro do Estado</label>
+                      <input type="text" class="form-control" id="BarCode">
+                    </div>
+
+                    <div class="form-group col-4">
+                      <label for="BarCode">CFOP fora do Estado</label>
+                      <input type="text" class="form-control" id="BarCode">
+                    </div>
+
+                    <div class="form-group col-4">
+                      <label for="BarCode">Tipo</label>
+                      <div class="form-group">
+
+                        <select class="form-control form-control-center" id='Type' name='Type'>
+                          <option value=""></option>
+                          <option value="">Veículos Novos</option>
+                          <option value=''>Medicamentos</option>
+                          <option value=''>Armamentos</option>
+                          <option value=''>Combustível</option>
+                          <option value="">Papel Imune</option>
+                        </select>
+
+                      </div>
+                    </div>
+
+                    <div class="form-group col-12">
+                      <label for="BarCode">Dados Combustível ANP</label>
+                      <div class="form-group">
+
+                        <select class="form-control form-control-center" id='Type' name='Type'>
+
+                        </select>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-5">
+                  Foto
+                  <i class="ik ik-camera"></i>
+
+                </div>
               </div>
+
             </div>
 
-            <div class="form-group row">
-              <label for="Measure" class="col-sm-3 col-form-label">Unidade de Medida</label>
-              <div class="col-sm-9">
-                <select class="form-control form-control-center" name='Measure' id="Measure">
-                  <option value='null' selected>Selecione...</option>
-                  {{#each Measure}}
-                  <option value='{{_id}}'>{{Description}}</option>
-                  {{/each}}
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="Type" class="col-sm-3 col-form-label">Tipo de Produto</label>
-              <div class="col-sm-9">
- 
-                <select class="form-control form-control-center" id='Type' name='Type'>
-                  <option value='null' selected>Selecione...</option>
-                  <option value='R'>Venda</option>
-                  <option value='S'>Matéria-Prima</option>
-                  <option value='B'>Ambos</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="Value" class="col-sm-3 col-form-label">Preço</label>
-              <div class="col-sm-9">
-                <input type="number" class="form-control form-control-center" placeholder="Digite aqui..." required=''
-                  id="Value" name="Value">
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-block">Gravar</button>
-
-          </form>
-
+          </div>
+          <div class="tab-pane fade" id="EstoqueMovimentação" role="tabpanel" aria-labelledby="pills-timeline-tab">
+            Estoque & Movimentação
+          </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -113,8 +369,7 @@
                     <button type="button" class="btn btn-icon btn-primary" onclick="view('{{_id}}')" data-toggle="modal"
                       data-target="#Modal"><i class="ik ik-eye"></i></button>
                     <button type="button" class="btn btn-icon btn-success" onclick="edit('{{_id}}')" data-toggle="modal"
-                      data-target="#Modal"><i
-                        class="ik ik-edit-2"></i></button>
+                      data-target="#Modal"><i class="ik ik-edit-2"></i></button>
                     <button type="button" class="btn btn-icon btn-danger" onclick="delet('{{_id}}')"><i
                         class="ik ik-trash-2"></i></button>
                   </div>

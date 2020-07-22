@@ -5,10 +5,14 @@ const mongoose = require("mongoose");
 require("../models/ProductModel");
 require("../models/ProductionModel.Js");
 require("../models/ClientModel");
+require("../models/UserModel");
 
 const ProductModel = mongoose.model("product");
 const ProductionModel = mongoose.model("production");
 const ClientModel = mongoose.model("client");
+const UserModel = mongoose.model("user");
+
+
 // Auth
 const passport = require("passport");
 // Levels Permission
@@ -16,34 +20,39 @@ const { isAdmin } = require("../helpers/LevelAdmin");
 const { Authentication } = require("../helpers/Authentication.js");
 
 Router.get("/", (req, res) => {
-  ClientModel.find({}, { _id: 1, Name: 1 }).then((Data) => {
-    res.render("Admin/production/Index", {
-      title: "LL-System",
-      style: {
-        style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
-        style2: "plugins/ionicons/dist/css/ionicons.min.css",
-        style3: "plugins/icon-kit/dist/css/iconkit.min.css",
-        style4: "plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css",
-        style6: "css/theme.css",
-        style7: "css/sweetalert2.min.css",
-        style8: "plugins/fontawesome-free/css/all.min.css",
-      },
-      js: {
-        js1: "js/jquery/jquery-3.3.1.min.js",
-        js2: "plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js",
-        js3: "plugins/popper.js/dist/umd/popper.min.js",
-        js4: "plugins/bootstrap/dist/js/bootstrap.min.js",
-        js5: "plugins/datatables.net/js/jquery.dataTables.min.js",
-        js6: "js/sweetalert2/sweetalert2.all.min.js",
-        js7: "js/theme.min.js",
-        js8: "js/pages/xhttp.js",
-        js9: "js/pages/Production.js",
-        js10: "plugins/moment/moment.js",
-      },
-      Client: Data,
-      Menu: "Production",
+  UserModel.find({},{Name:1}).then((DataUser)=>{
+    ClientModel.find({}, { _id: 1, Name: 1 }).then((Data) => {
+      res.render("Admin/production/Index", {
+        title: "LL-System",
+        style: {
+          style1: "plugins/bootstrap/dist/css/bootstrap.min.css",
+          style2: "plugins/ionicons/dist/css/ionicons.min.css",
+          style3: "plugins/icon-kit/dist/css/iconkit.min.css",
+          style4: "plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css",
+          style6: "css/theme.css",
+          style7: "css/sweetalert2.min.css",
+          style8: "plugins/fontawesome-free/css/all.min.css",
+        },
+        js: {
+          js1: "js/jquery/jquery-3.3.1.min.js",
+          js2: "plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js",
+          js3: "plugins/popper.js/dist/umd/popper.min.js",
+          js4: "plugins/bootstrap/dist/js/bootstrap.min.js",
+          js5: "plugins/datatables.net/js/jquery.dataTables.min.js",
+          js6: "js/sweetalert2/sweetalert2.all.min.js",
+          js7: "js/theme.min.js",
+          js8: "js/pages/xhttp.js",
+          js9: "js/pages/Production.js",
+          js10: "plugins/moment/moment.js",
+        },
+        Client: Data,
+        User: DataUser,
+        Menu: "Production",
+      });
     });
-  });
+
+  })
+ 
 });
 
 Router.post("/view", (req, res) => {
