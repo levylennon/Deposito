@@ -14,7 +14,7 @@ const employee  = require("./EmployeeRouters");
 const Purchase  = require("./PurchaseRouters")
 const Driver  = require("./DriverRouters");
 const Supplier  = require("./SupplierRouter");
-const TransactionNature  = require("./TransactionNature");
+const TransactionNature  = require("./TransactionNatureRouter");
 
 MainRouter.use("/", MainRouters);
 MainRouter.use("/Api", Api);

@@ -32,8 +32,7 @@ Router.get("/", (req, res) => {
       js6: "js/sweetalert2/sweetalert2.all.min.js",
       js7: "js/theme.min.js",
       js8: "js/pages/xhttp.js",
-      // js9: "js/pages/Supplier.js",
-      // js10: "plugins/Mask/src/jquery.mask.js",
+      js9: "js/pages/TransactionNature.js",
     },
     Menu: "TransactionNature",
   });

@@ -214,4 +214,38 @@ $(document).ready(function () {
       $("#SelectProduct").html(Products);
     });
   });
+
+  $('#BtnAddPayment').on('click', function () {
+    let tBodyPayment = $('tbody')[1];
+
+    let tr = document.createElement("tr");
+    let Actions = document.createElement("td");
+    let DueDate = document.createElement("td");
+    let Value = document.createElement("td");
+
+      // Create a button viewer
+    let BtnDelete = document.createElement("button");
+    BtnDelete.type = "button";
+    BtnDelete.setAttribute("class", "btn social-btn btn-dribbble");
+    BtnDelete.setAttribute("onclick", "RemovePayment(this)");
+    BtnDelete.innerHTML = '<i class="ik ik-paperclip"></i>';
+    Actions.append(BtnDelete);
+
+
+    let Date = document.createElement("input");
+    Date.type = "date";
+    DueDate.append(Date)
+
+    Value.innerHTML = '210,00';
+
+    tr.append(Actions);
+    tr.append(DueDate);
+    tr.append(Value);
+
+    tBodyPayment.append(tr)
+  })
+
+  window.RemovePayment = function (e) {
+    e.parentElement.parentElement.remove()
+  }
 });

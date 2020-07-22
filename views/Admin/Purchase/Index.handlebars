@@ -19,123 +19,211 @@
     <div class="tab-pane active" role='tabpanel' id='xml'>
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h3>Entrada com XML </h3>
-                </div>
-                <div class="card-body">
-                    <form id='form_entrada'>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Selecione o XML</label>
-                            {{!-- Input XML  --}}
-                            <div class="col-sm-7 ">
-                                <div class="form-group">
-                                    <input type="file" name="xml" class="file-upload-default" accept="text/xml"
-                                        id='FileXML'>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control file-upload-info"
-                                            placeholder="Clique aqui para selecionar o arquivo XML" readonly>
+
+                {{!-- <form id='form_entrada'> --}}
+
+                <ul class="nav nav-pills custom-pills" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-timeline-tab" data-toggle="pill" href="#Dados" role="tab"
+                            aria-controls="pills-timeline" aria-selected="true">Cabeçalho</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#Products" role="tab"
+                            aria-controls="pills-profile" aria-selected="false">Produtos</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link active show" id="pills-profile-tab" data-toggle="pill" href="#Payment"
+                            role="tab" aria-controls="pills-profile" aria-selected="false">Pagamento</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#"
+                            role="tab" aria-controls="pills-profile" aria-selected="false">Totais NF</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#"
+                            role="tab" aria-controls="pills-profile" aria-selected="false">Informações</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade" id="Dados" role="tabpanel" aria-labelledby="pills-timeline-tab">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Selecione o XML</label>
+                                {{!-- Input XML  --}}
+                                <div class="col-sm-7 ">
+                                    <div class="form-group">
+                                        <input type="file" name="xml" class="file-upload-default" accept="text/xml"
+                                            id='FileXML'>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control file-upload-info"
+                                                placeholder="Clique aqui para selecionar o arquivo XML" readonly>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <label class="col-sm-1 col-form-label">Nº NFe</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" disabled id='NrNFe'>
+                                </div>
+
                             </div>
 
-                            <label class="col-sm-1 col-form-label">Nº NFe</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" disabled id='NrNFe'>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Fornecedor</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" disabled id='Fornecedor'>
+                                </div>
+                                <label class="col-sm-1 col-form-label">CNPJ</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" disabled id='CNPJ'>
+                                </div>
+                                <label class="col-sm-1 col-form-label">I.E</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" disabled id='IE'>
+                                </div>
+
                             </div>
+
+                            <div class="form-group row">
+
+                                <label class="col-sm-2 col-form-label">Endereço</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" disabled id='Endereco'>
+                                </div>
+
+                                <label class="col-sm-1 col-form-label">Bairro</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" disabled id='Bairro'>
+                                </div>
+
+                                <label class="col-sm-1 col-form-label">CEP</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" disabled id='CEP'>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Municipio</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" disabled id='Municipio'>
+                                </div>
+
+                                <label class="col-sm-2 col-form-label">Data Emissão</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" disabled id='Emissao'>
+                                </div>
+
+                                <label class="col-sm-2 col-form-label">Data Saida/Entrada</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" disabled id='Entrada'>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="Products" role="tabpanel" aria-labelledby="pills-timeline-tab">
+                        <div class="card-body">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Cód. Produto</th>
+                                        <th>Descrição</th>
+                                        <th>Tipo Unitário</th>
+                                        <th>Quantidade</th>
+                                        <th>Valor Unitário</th>
+                                        <th>Valor Total</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                                <tfoot>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th id='total_produto'></th>
+                                    <th></th>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade  active show" id="Payment" role="tabpanel"
+                        aria-labelledby="pills-timeline-tab">
+                        <div class="card-body">
+
+                            <div class="form-group row">
+                                <div class="col-5">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Natureza de Operação</label>
+                                        <div class="col-sm-9">
+                                            <select name="" id="" class="form-control">
+                                                <option value="">Venda</option>
+                                                <option value="">Compra</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-sm-3 col-form-label">Condição de Pagamento</label>
+                                        <div class="col-sm-9">
+                                            <select name="" id="" class="form-control">
+                                                <option value="">30/60/90</option>
+                                                <option value="">12x sem juros/option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-7">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 5%;">
+                                                    <button type="button" class="btn btn-success" id='BtnAddPayment'><i
+                                                            class="ik ik-plus"></i>Novo</button>
+                                                </th>
+                                                <th class="text-center">vencimento</th>
+                                                <th class="text-center">valor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                        <tfoot>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+
+                            </div>
+
+
+
+
 
                         </div>
-
-                        <hr>
-
-
-                        <h2 class="text-center col-12">Dados Remetente</h2>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Fornecedor</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" disabled id='Fornecedor'>
-                            </div>
-                            <label class="col-sm-1 col-form-label">CNPJ</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" disabled id='CNPJ'>
-                            </div>
-                            <label class="col-sm-1 col-form-label">I.E</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" disabled id='IE'>
-                            </div>
-
-                        </div>
-
-                        <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Endereço</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" disabled id='Endereco'>
-                            </div>
-
-                            <label class="col-sm-1 col-form-label">Bairro</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" disabled id='Bairro'>
-                            </div>
-
-                            <label class="col-sm-1 col-form-label">CEP</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" disabled id='CEP'>
-                            </div>
-
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Municipio</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" disabled id='Municipio'>
-                            </div>
-
-                            <label class="col-sm-2 col-form-label">Data Emissão</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" disabled id='Emissao'>
-                            </div>
-
-                            <label class="col-sm-2 col-form-label">Data Saida/Entrada</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" disabled id='Entrada'>
-                            </div>
-
-
-
-                        </div>
-
-                        <h2 class="text-center col-12">Produtos</h2>
-
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Cód. Produto</th>
-                                    <th>Descrição</th>
-                                    <th>Tipo Unitário</th>
-                                    <th>Quantidade</th>
-                                    <th>Valor Unitário</th>
-                                    <th>Valor Total</th>
-                                    <th>&nbsp;</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                            <tfoot>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th id='total_produto'></th>
-                                <th></th>
-                            </tfoot>
-                        </table>
-                    </form>
-
+                    </div>
 
                 </div>
+
+
+
+
+
+
+
+                {{!-- </form> --}}
+
+
+
             </div>
         </div>
     </div>

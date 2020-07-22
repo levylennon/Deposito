@@ -9,9 +9,11 @@ require("../models/ProductionModel.Js");
 require("../models/ClientModel");
 require("../models/EstadosModel");
 require("../models/SupplierModel");
+require("../models/TransactionNatureModel");
 
 // Request pages out server
 const axios = require("axios");
+
 const MeasuresModel = mongoose.model("measures");
 const ProductModel = mongoose.model("product");
 const UserModel = mongoose.model("user");
@@ -19,6 +21,7 @@ const ProductionModel = mongoose.model("production");
 const ClientModel = mongoose.model("client");
 const EstadosModel = mongoose.model("estados");
 const SupplierModel = mongoose.model("supplier");
+const TransactionNature = mongoose.model("transactionNature");
 
 // Crypt
 const bcrypt = require("bcryptjs");
@@ -782,6 +785,23 @@ Router.post("/LinkProduct", (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+});
+
+// -------------------------------------------------- Transactions Nature
+Router.post("/Transaction/New", (req, res) => {
+  if(req.body.Description === '') return;
+  if(req.body.Transition === '') return;
+  
+  const NewTransactionNature = req.body;
+
+  new TransactionNature(NewTransactionNature)
+  .save()
+  .then(() => {
+    res.send("saved");
+  })
+  .catch((err) => {
+    res.send(err);
+  });
 });
 
 module.exports = Router;
