@@ -32,6 +32,9 @@ const { isAdmin } = require("../helpers/LevelAdmin");
 const { Authentication } = require("../helpers/Authentication.js");
 const { response } = require("express");
 
+require('dotenv').config();
+
+
 // -------------------------------- Clients
 Router.post("/AddClient", (req, res) => {
   const newClient = {
@@ -719,7 +722,7 @@ Router.get("/Supplier/GetCNPJ/:cnpj", (req, res) => {
     headers: {
       "content-type": "application/octet-stream",
       "x-rapidapi-host": "consulta-cnpj-gratis.p.rapidapi.com",
-      "x-rapidapi-key": "93a66f2439msh99d81af112481cdp10a54bjsn9049844d42ca",
+      "x-rapidapi-key": process.env.API_KEY_CNPJ,
       useQueryString: true,
     },
   })
